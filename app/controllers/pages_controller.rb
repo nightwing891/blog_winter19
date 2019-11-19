@@ -10,8 +10,25 @@ class PagesController < ApplicationController
   end
 
   def new
+    @page = Page.new
+     # render new.html.erb
+  end
+
+  def create
+    @page = Page.new(pages_params)
+
+    if @page.save
+      redirect_to pages_path
+    else
+      render :new
+    end
   end
 
   def edit
   end
+
+  private
+    def pages_params
+      params.require(:page).permit(:title, :author, :body)
+    end
 end
